@@ -111,6 +111,7 @@ sr.reveal(`.about__img-overlay,
     interval: 100,
 })
 
+
 /*==================== DARK LIGHT THEME ====================*/ 
 const themeButton = document.getElementById('theme-button')
 const darkTheme = 'dark-theme'
@@ -140,4 +141,4 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
-/*==================== Password Verification====================*/ 
+/*==================== Days Calculator====================*/ 

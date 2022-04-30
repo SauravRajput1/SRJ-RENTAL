@@ -1,46 +1,43 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" href="../assets/img/favicon.ico" type="image">
+        <link rel="shortcut icon" href="../../assets/img/favicon.ico" type="image">
 
         <!--=============== REMIXICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
         <!--=============== SWIPER CSS ===============-->
-        <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+        <link rel="stylesheet" href="../../assets/css/swiper-bundle.min.css">
+
+        <!--=============== BOOTSRAP CSS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 
         <!--=============== CSS ===============-->
-        <link rel="stylesheet" href="../assets/css/styles.css" >
-        <link rel="stylesheet" href="style2.css">
+        <link rel="stylesheet" href="../../assets/css/styles.css" >
 
         <title>SRJ RENTAL</title>
     </head>
     <body>
     <header class="header" id="header">
             <nav class="nav container">
-                <a href="../index.html" class="nav__logo">SRJ RENTAL</a>
+                <a href="../../index.html" class="nav__logo">SRJ RENTAL</a>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="../index.html" class="nav__link active-link">Home</a>
+                            <a href="../logout.php" class="nav__link">Logout</a>
                         </li>
-                        <li class="nav__item">
-                            <a href="login.php" class="nav__link">Login</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="backend/booking.php" class="nav__link"></a>
-                        </li>
+                        
                     </ul>
 
-                    <div class="nav__dark">
-                        <span class="change-theme-name">Dark mode</span>
-                        <i class="ri-moon-line change-theme" id="theme-button"></i>
-                    </div>
-
+                    
                     <i class="ri-close-line nav__close" id="nav-close"></i>
                 </div>
 
@@ -51,36 +48,35 @@
         </header>
         <main class="main">
         <section class="book_section" id="book">
-        <img src="cars/bookhead.jpg" alt="car" class="book__img">
-        <section class="listings">
-		<div class="wrapper">
-			<ul class="properties_list">
-			<?php
-						include 'config.php';
-						$sel = "SELECT * FROM cars WHERE car_status = 'Available'";
-						$rs = $con->query($sel);
-						while($rws = $rs->fetch_assoc()){
-			?>
-				<li>
-					<a href="book_car.php?id=<?php echo $rws['car_id'] ?>">
-						<img class="car__img account__img" src="cars/img/<?php echo $rws['image'];?>" >
-					</a>
-					<span class="price"><?php echo '₹'.$rws['cost'];?>/Day</span>
-					<div class="property_details">
-						<h1>
-							<a href="book_car.php?id=<?php echo $rws['car_id'] ?>"><?php echo $rws['car_name'];?></a>
-						</h1>
-						<h2> <span class="property_size"><?php echo $rws['car_type'];?><img src="cars/type.png" alt="" class="car__icon"></span></h2>
-                        <h2> <span class="property_size"><?php echo $rws['capacity'];?>-Seater <img src="cars/seat.png" alt="" class="car__icon"></span></h2>
-					</div>
-				</li>
-			<?php
-				}
-			?>
-			</ul>
-		</div>
-	</section>
-            </section>
+        <img src="../cars/bookhead.jpg" alt="car" class="book__img">
+        <section class="section">
+        <h1 class="section__title account__title text-center">Welcome Admin</h1>
+        <div class="container">
+        <h2>CARS</h2>
+        <div class="row row-cols-4">
+            <div class="col"><a href="admincar.php" class="btn-primary button">ViewCars/Modify Cars/Add Cars/Remove Cars</a></div>
+        </div>
+        
+        </div>
+        <div class="container">
+        <h2>CLIENT</h2>
+        <div class="row row-cols-4"> 
+            <div class="col"><a href="Client.php" class="btn-primary button">View Client/Approve Ride And Payment/Cancel Ride/Remove Client</a></div>
+        </div>
+        
+        </div>
+        <div class="container">
+        <h2>Employee </h2>
+        <div class="row row-cols-4">
+            
+            <div class="col"><a href="admin.php" class="btn-primary button">Add Admin/Remove Admin</a></div>
+
+            
+        </div>
+        
+        </div>
+      </section>
+        
             </main>
             
             <footer class="footer section">
@@ -166,8 +162,8 @@
     <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line scrollup__icon"></i>
         </a>
-                <script src="../assets/js/swiper-bundle.min.js"></script>
+                <script src="../../assets/js/swiper-bundle.min.js"></script>
 
-                <script src="../assets/js/main.js"></script>
+                <script src="../../assets/js/main.js"></script>
             </body>
         </html>

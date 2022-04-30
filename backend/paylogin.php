@@ -2,6 +2,7 @@
 	session_start();
 ?>
 <!DOCTYPE html>
+
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -16,7 +17,8 @@
         <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
 
         <!--=============== BOOTSRAP CSS ===============-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="../assets/css/styles.css" >
@@ -27,7 +29,7 @@
     <body>
     <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">SRJ RENTAL</a>
+                <a href="../index.html" class="nav__logo">SRJ RENTAL</a>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
@@ -35,13 +37,13 @@
                             <a href="../index.html" class="nav__link active-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="login.php" class="nav__link">Login</a>
+                            <a href="Account.php" class="nav__link">Account</a>
                         </li>
                         <li class="nav__item">
                             <a href="backend/booking.php" class="nav__link"></a>
                         </li>
                     </ul>
-                    
+
                     <div class="nav__dark">
                         <span class="change-theme-name">Dark mode</span>
                         <i class="ri-moon-line change-theme" id="theme-button"></i>
@@ -56,120 +58,64 @@
             </nav>
         </header>
         <main class="main">
+        <section class="book_section" id="book">
         <img src="cars/bookhead.jpg" alt="car" class="book__img">
-        <section class="book" id="cars">
-        <section class="listings">
-          <div class="wrapper">
-              <ul class="properties_list">
-              <?php
-                          include 'config.php';
-                          $sel = "SELECT * FROM cars WHERE car_id = '$_GET[id]'";
-                          $rs = $con->query($sel);
-                          $rws = $rs->fetch_assoc();
-
-              ?>
-                  <li>
-                      <a href="book_car.php?id=<?php echo $rws['car_id'] ?>">
-                          <img class="car__img account__img" src="cars/img/<?php echo $rws['image'];?>" >
-                      </a>
-                      <span class="price"><?php echo '₹'.$rws['cost'];?>/Day</span>
-                      <div class="property_details">
-                          <h1>
-                              <a href="book_car.php?id=<?php echo $rws['car_id'] ?>"><?php echo $rws['car_name'];?></a>
-                          </h1>
-                          <h2> <span class="property_size"><?php echo $rws['car_type'];?><img src="cars/type.png" alt="" class="car__icon"></span></h2>
-                          <h2> <span class="property_size"><?php echo $rws['capacity'];?>-Seater <img src="cars/seat.png" alt="" class="car__icon"></span> </h2>
-                      </div>
-                  </li>
-                  <h3>Proceed to Hire <?php echo $rws['car_name'];?>. </h3>
-				
-    
-                        
-                    <form method="post" class="book__form" >
-                    <h9 class="">Sign Up For Booking</h8>
-					<table class="form-group">
-                    <tr>
-                      <td>
-                    <input name="name" type="text" placeholder="Enter Name" class="form-control" id="name" required>
-                    </td>  
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="email" type="email" placeholder="Enter email" class="form-control" id="email" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="password" type="password" placeholder="Enter Password" class="form-control" id="number" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="mobile" type="number" placeholder="Enter Mobile Number" class="form-control" id="number" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <textarea name="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="city" type="text" placeholder="Enter Pickup City" class="form-control" id="city" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="pincode" type="number" placeholder="Enter Pincode" class="form-control" maxlength="6" required id="pincode">
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <button class="btn btn-primary button" type="submit" name="save" value="Submit Details">Submit</button>
-                    <button class="btn btn-primary button" type="reset">Reset</button>
+        <section class="section">
+            <div class="container">
+            
+            <h2>Log In</h2>
+        <form method="post"  class="book__form">
+        <form method="post"  class="book__form">
+                     <table class="form-group">
+					<tr>
+						<td>Email Address:</td>
+						<td><input type="email" name="email" placeholder="Enter Email " class="form-control" required></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="pass" placeholder="Enter Password" class="form-control" required></td>
+					</tr>
+					<tr>
+						<td><input type="submit" name="log" value="Login Here" class="btn-primary button"></td>
+					</tr>
+				</table>
+			</form>
+            </div>
+			<?php
+				if(isset($_POST['log'])){
+					include 'config.php';
+					
+					$email = $_POST['email'];
+					$password = $_POST['pass'];
+					
                     
-                    </td>
-                    </tr>
-                    
-					</table>
-                  
-				</form>
-                
-    
+					$qy = "SELECT * FROM client WHERE email = '$email' AND password = '$password'";
+					$log = $con->query($qy);
+					$num = $log->num_rows;
+					$row = $log->fetch_assoc();
+					if($num > 0){
+						session_start();
+						$_SESSION['email'] = $row['email'];
+						$_SESSION['password'] = $row['password'];
+						echo "<script type = \"text/javascript\">
+									alert(\"Login Successful\");
+                                    window.location = (\"pay.php\")
+									</script>";
+					} else{
+						echo "<script type = \"text/javascript\">
+									alert(\"Login Failed Wrong Password\");
+									window.location = (\"login.php\")
+									</script>";
+					}
+				}
+			?>
+            </div>
 			
-				<?php
-						if(isset($_POST['save'])){
-							include 'config.php';
-							$name = $_POST['name'];
-							$email = $_POST['email'];
-                            $password = $_POST['password'];
-							$mobile = $_POST['mobile'];
-							$address = $_POST['address'];
-                            $city =$_POST['city'];
-                            $pincode=$_POST['pincode'];
-							
-							$qry = "INSERT INTO client (name,email,password,mobile,address,city,pincode,car_id,status)
-							VALUES('$name','$email','$password','$mobile','$address','$city','$pincode','$_GET[id]','pending')";
-							$result = $con->query($qry);
-							if($result == TRUE){
-								echo "<script type = \"text/javascript\">
-											alert(\"Successfully Registered. Proceed to Login\");
-                                            window.location = (\"paylogin.php\")
-											</script>";
-							} else{
-								echo "<script type = \"text/javascript\">
-											alert(\"Registration Failed. Try Again\");
-											window.location = (\"book_car.php\")
-											</script>";
-							}
-						}
-						
-					  ?>
-                    
-			</ul>
-		</div>
-	</section>
-            </section>
+          
+
+          </div>
+      </section>
+        
             </main>
             
             <footer class="footer section">
@@ -251,6 +197,10 @@
                     </div>
                 </div>
     </footer>
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line scrollup__icon"></i>
+        </a>
                 <script src="../assets/js/swiper-bundle.min.js"></script>
 
                 <script src="../assets/js/main.js"></script>

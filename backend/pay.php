@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -31,10 +34,10 @@
                             <a href="../index.html" class="nav__link active-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="login.php" class="nav__link"></a>
+                            <a href="account.php" class="nav__link">Account</a>
                         </li>
                         <li class="nav__item">
-                            <a href="backend/booking.php" class="nav__link"></a>
+                            <a href="logout.php" class="nav__link">Logout</a>
                         </li>
                     </ul>
 
@@ -42,7 +45,6 @@
                         <span class="change-theme-name">Dark mode</span>
                         <i class="ri-moon-line change-theme" id="theme-button"></i>
                     </div>
-
                     <i class="ri-close-line nav__close" id="nav-close"></i>
                 </div>
 
@@ -51,52 +53,59 @@
                 </div>
             </nav>
         </header>
+        <?php
+						include 'config.php';
+						$sel = "SELECT * FROM client  INNER JOIN cars on cars.car_id = client.car_id WHERE email = '$_SESSION[email]'";
+						$rs = $con->query($sel);
+						$rws = $rs->fetch_assoc();
+                        ?>
+                        <?php
+                                    include 'config.php';
+                                    
+                                    $rs = $con->query($sel);
+                                    $rws = $rs->fetch_assoc();
+                        ?>
         <main class="main">
-            
         <section class="book_section" id="book">
         <img src="cars/bookhead.jpg" alt="car" class="book__img">
         <section class="about section" id="about">
+        <h1 class="section__title  text-center">Welcome <?php echo $rws['name'] ?></h1>
                 <div class="about__container container grid">
                     <div class="about__data">
+                    
+
                         <h2 class="section__title about__title">UPI Transaction</h2>
+                        
                         <img src="cars/upi.jpg" alt="" class="qr__img">
                     </div>
                     <form method="post" class="book__form" >
-          <table class="form-group">
+                    <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="pickup" class="form-label">Pickup Date</label>
+            <input name="p_date" type="date" placeholder="pickup-date" class="form-control" id="p_date" required >
+            </div>
+            <div class="form-group col-md-6">
+            <label for="drop" class="form-label">Return Date</label>
+            <input name="r_date" type="date" placeholder="pickup-date" class="form-control"  id="r_date" required> 
+            </div>
+            <button type="submit" class="btn btn-primary button" onclick="check()">Submit</button>
+            </div>
+            <div class="form-group">
+            <label for="date" class="form-label">Total Cost &#8377;</label>
+            <input type="text" name="amount"  placeholder="Amount" class="form-control" id="amount" value="Select Your Ride Date" readonly> 
+            </div>
          
-          <tr>
-            <td>
-          <input name="name" type="text" placeholder="Enter Account Name" class="form-control" id="name" required>
-          </td>  
-          </tr>
+          <table class="form-group">
           <tr>
           <td>
-          <input name="email" type="email" placeholder="Enter Email" class="form-control" id="email" required>
+          <label for="date" class="form-label">Upi Id</label>
+          <input type="text" name="upi_id" placeholder="UPI ID" class="form-control" id="upi_id" required>
           </td>
           </tr>
           <tr>
           <td>
-          <input name="a_mobile" type="number" placeholder="Enter Mobile Number" class="form-control" id="number" required>
-          </td>
-          </tr>
-          <tr>
-          <td>
-          <textarea name="upi_id" class="form-control" id="upi_id" rows="3" placeholder="Transaction ID" required></textarea>
-          </td>
-          </tr>
-          <tr>
-          <td>
-          <input name="amount" type="number" placeholder="Amount" class="form-control" id="amount" pattern="[1-9]{1}[0-9]{9}" required> 
-          </td>
-          </tr>
-          <tr>
-          <td>
-          <input name="date" type="date" placeholder="date" class="form-control" required id="date">
-          </td>
-          </tr>
-          <tr>
-          <td>
-          <input name="time" type="time" placeholder="time" class="form-control" required id="time">
+          <label for="date" class="form-label">Transaction Date</label>
+          <input  type="date" name="upi_date"  class="form-control" required id="upi_date">
           </td>
           </tr>
           <tr>
@@ -110,23 +119,19 @@
       </form>
             </section>
           <section class="listings">
-              
          
          
                 <?php
 						if(isset($_POST['save'])){
 							include 'config.php';
-							$a_name = $_POST['name'];
-                            $email = $_POST['email'];
-                            $a_mobile = $_POST['a_mobile'];
-                            $id = $_POST['upi_id'];
-                            $a_amount = $_POST['amount'];
-                            $a_date = $_POST['date'];
-                            $a_time = $_POST['time'];
-
+                            $pickup_date = $_POST['p_date'];
+                            $return_date = $_POST['r_date'];
+                            $upi_id = $_POST['upi_id'];
+                            $amount = $_POST['amount'];
+                            $upi_date = $_POST['upi_date'];
 
 							
-							$qry = "INSERT INTO upi (a_name,email,a_mobile,id,a_amount,a_date,a_time) VALUES('$a_name','$email','$a_mobile','$id','$a_amount','$a_date','$a_time')";
+							$qry = "UPDATE `client` SET `pickup_date` = '$pickup_date' , `return_date`='$return_date', `upi_id`= '$upi_id' , `amount`= '$amount' , `upi_date`='$upi_date' , `upi_status`='notverified' WHERE email = '$_SESSION[email]'";
 							$result = $con->query($qry);
 							if($result == TRUE){
 								echo "<script type = \"text/javascript\">
@@ -142,8 +147,8 @@
 						}
 						
 					  ?>
-		
-	</section>
+                                    
+	    </section>
             </section>
             </main>
             
@@ -233,5 +238,20 @@
                 <script src="../assets/js/swiper-bundle.min.js"></script>
 
                 <script src="../assets/js/main.js"></script>
+                <script>
+                function check() {
+                var date1 = new Date(document.getElementById('p_date').value);
+                var date2 = new Date(document.getElementById('r_date').value);
+                var diff = Math.abs(date2.getTime() - date1.getTime());
+                var noofdays = Math.ceil(diff / (1000 * 3600 * 24));  
+                if(date1  >= date2){ 
+                    alert("return date should after Pickup date")
+                }
+                else {
+                    var amount = noofdays*<?php echo $rws['cost'];?>;
+                    document.getElementById("amount").value = amount;
+                }
+                }		
+                </script>
             </body>
         </html>

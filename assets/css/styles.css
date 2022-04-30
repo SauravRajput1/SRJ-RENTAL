@@ -802,24 +802,26 @@ width: 250px;;
 .account__container {
   row-gap: 1.5rem;
 }
-.account__car__img{
-  width: 300px;
-  height: 200px;
-  padding: 20px;
-  transition: var(--img-transition);
-}
-.account_car__img:hover {
+.account__img:hover,.account__img-one:hover {
   transform: var(--img-scale);
 }
-.account__car__img-overlay {
-  overflow: var(--img-hidden);
-}
-.account__car__img{
+
+.account__img,.account__img-one{
   transition: var(--img-transition);
 }
 
-.account__car__img:hover{
-  transform: var(--img-scale);
+.account__img-one{
+  width: 180px;
+  height: 180px;
+  padding: 30px;
+  left: 40%;
+}
+.account__img-status{
+  width: 350px;
+  height: 300px;
+}
+.approve__title{
+  text-align: center;
 }
 
 /*========== SCROLL UP ==========*/

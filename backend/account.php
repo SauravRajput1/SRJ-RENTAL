@@ -34,7 +34,7 @@
                             <a href="../index.html" class="nav__link active-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="login.php" class="nav__link"></a>
+                            <a href="logout.php" class="nav__link">Logout</a>
                         </li>
                         <li class="nav__item">
                             <a href="backend/booking.php" class="nav__link"></a>
@@ -59,7 +59,7 @@
         <section class="account section" id="account">
         <?php
 						include 'config.php';
-						$sel = "SELECT * FROM client  INNER JOIN cars on cars.car_id = client.car_id WHERE email = '$_SESSION[email]'";
+						$sel = "SELECT *,(return_date-pickup_date) AS days FROM client  INNER JOIN cars on cars.car_id = client.car_id WHERE email = '$_SESSION[email]'";
 						$rs = $con->query($sel);
 						$rws = $rs->fetch_assoc();
 			?>
@@ -73,59 +73,111 @@
             <h1 class="section__title account__title text-center">Welcome <br><?php echo $rws['name'] ?></h1>
             <h3 class="section__title"> Your Account Information <?php echo $rws['name'] ?></h3>
             <div class="container">
+                <div class="row">
+                            <div class="col">
+                            Your Booked Car 
+                            </div>
+                            <div class="col">
+                            Your Personal Information
+                            </div>
+                            <div class="col">
+                            Your Status
+                            </div>
+                            </div>
+                            </div>
             <div class="row">
-                <div class="col">
-                Your Booked Car
-                </div>
-                <div class="col">
-                Your Personal Information
-                </div>
-                <div class="col">
-                Your Status
-                </div>
-            </div>
-            </div>
-            <div class="grid">
-            <div class="row">
-            <div class="g-col-6 g-col-md-4">
-            <div class="card" style="width: 20rem;">
-            <img src="cars/<?php echo $rws['image'];?>" class="card-img-top account__car__img" alt="car">
+            <div class="card-deck">
+            <div class="card h-100" style="width: 20rem;">
+            <img src="cars/img/<?php echo $rws['image'];?>" class="card-img-top account__img" alt="car">
             <div class="card-body">
             <h5 class="card-title">Your Booked Car</h5>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_name'];?></p>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_type'];?></p>
-            <p class="card-text"><img src="cars/seat.png" alt="" class="car__icon"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['capacity'];?> Seater</p>
+            <p class="card-text"><img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['car_name'];?></p>
+            <p class="card-text"><img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['car_type'];?></p>
+            <p class="card-text"><img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['cost'];?>/Day</p>
+            <p class="card-text"><img src="cars/seat.png" alt="" class="car__icon"><img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['capacity'];?> Seater</p>
             </div>
             </div>
-             </div>
-
+            </div>
+            <div class="col">
+            <div class="card h-100" style="width: 20rem;">
+            <img src="cars/account.png" class="card-img-top account__img-one" alt="car">
+            <div class="card-body">
+            <h5 class="card-title">Your Profile</h5>
+            <p class="card-text">Email<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['email']?></p>
+            <p class="card-text">Mobile<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['mobile']?></p>
+            <p class="card-text">City<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['city'];?></p>
+            </div>
+            </div>
+            </div>
+             <div class="col">
+             <div class="card h-100" style="width: 20rem;">
+             <?php
+                $status= $rws['status'];
+                if ($status == "pending") {
+                    echo'<img src="cars/pending.png" class="card-img-top account__img-one" name="pendingImg">';
+                    echo'Wait For Payment Verification';
+                } 
+                elseif($status == "approve") {
+                    echo'<img src="cars/approve.gif" class="card-img-top account__img-one" name="ApproveImg">';  
+                    echo'<p class="approve__title"><img src="cars/arrow.gif" alt="" class="car__icon">Thankyou our Team Contact You For Pickup Location and PaperWork.</p>';
+                }
+                elseif($status =="cancel"){
+                    echo'<img src="cars/cancel.png" class="card-img-top account__img-one" name="CancelImg">';
+                    echo'Not Paid';
+                }
+                ?>  
+            <div class="card-body">
+            <h5 class="card-title">Status Of Booking</h5>
+            <p class="card-text">Status<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['status'];?></p>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                            <div class="col">
+                            Your Payment
+                            </div>
+                            <div class="col">
+                            Your Booking Details
+                            </div>
+                            <div class="col">
+                            
+                            </div>
+                            </div>
+                            </div>
+            <div class="row">
+            <div class="car-deck">
+            <div class="card h-100" style="width: 20rem;">
+            <img src="cars/payment.png" class="card-img-top account__img-one" alt="car">
+            <div class="card-body">
+            <h5 class="card-title">Your Payment</h5>
+            <a href="pay.php" class="btn-primary button">Pay</a>
+            <p class="card-text">Date<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['upi_date'];?></p>
+            <p class="card-text">Upi Id<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['upi_id'];?></p>
+            <p class="card-text">Amount <img src="cars/arrow.gif" alt="" class="car__icon">&#8377;<?php echo $rws['amount'];?> </p>
+            <p class="card-text">Status<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['upi_status'];?> </p>
+            </div>
+            </div>
+            </div>    
             <div class="col-md">
-            <div class="card" style="width: 20rem;">
-            <img src="cars/<?php echo $rws['image'];?>" class="card-img-top account__car__img" alt="car">
+            <div class="card h-100" style="width: 20rem;">
+            <img src="cars/booking.png" class="card-img-top account__img-one" alt="booking">
             <div class="card-body">
-            <h5 class="card-title">Your Booked Car</h5>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_name'];?></p>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_type'];?></p>
-            <p class="card-text"><img src="cars/seat.png" alt="" class="car__icon"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['capacity'];?> Seater</p>
+            <h5 class="card-title">Your Booking</h5>
+            <p class="card-text">Pick Up Date<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['pickup_date'];?> </p>
+            <p class="card-text">Return Date<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['return_date'];?> </p>
+            <p class="card-text">Total Days<img src="cars/arrow.gif" alt="" class="car__icon"><?php echo $rws['days'];?> </p>
+            <p class="card-text">Total Amount<img src="cars/arrow.gif" alt="" class="car__icon"> &#8377;<?php echo $rws['amount'];?> </p>
             </div>
             </div>
             </div>
-             <div class="col-md">
-             <div class="card" style="width: 20rem;">
-            <img src="cars/<?php echo $rws['image'];?>" class="card-img-top account__car__img" alt="car">
-            <div class="card-body">
-            <h5 class="card-title">Your Booked Car</h5>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_name'];?></p>
-            <p class="card-text"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['car_type'];?></p>
-            <p class="card-text"><img src="cars/seat.png" alt="" class="car__icon"><img src="cars/arrow.png" alt="" class="car__icon"><?php echo $rws['capacity'];?> Seater</p>
             </div>
             </div>
-            </div>
-             </div>
-            </div>
-            </div>
-              
+            </div>  
+            </div>  
            
+            
            
         </section>
        
@@ -218,5 +270,6 @@
                 <script src="../assets/js/swiper-bundle.min.js"></script>
 
                 <script src="../assets/js/main.js"></script>
+                
             </body>
         </html>

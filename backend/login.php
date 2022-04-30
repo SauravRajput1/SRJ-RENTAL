@@ -36,6 +36,9 @@
                             <a href="booking.php" class="nav__link">Booking</a>
                         </li>
                         <li class="nav__item">
+                            <a href="admin/adminlogin.php" class="nav__link">Admin Login</a>
+                        </li>
+                        <li class="nav__item">
                             <a href="backend/booking.php" class="nav__link"></a>
                         </li>
                     </ul>

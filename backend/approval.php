@@ -31,7 +31,7 @@
                             <a href="../index.html" class="nav__link active-link">Home</a>
                         </li>
                         <li class="nav__item">
-                            <a href="login.php" class="nav__link">Login</a>
+                            <a href="account.php" class="nav__link">Account</a>
                         </li>
                         
                     </ul>
@@ -66,7 +66,7 @@
                             <br>
                             2.Our SRJ Team will contact you Soon.
                             <br>
-                            3.You Can Also Login Your Account For Status. 
+                            3.You Can View Your Account For Status. 
                             <br>
                             4.Thankyou For Booking. 
 

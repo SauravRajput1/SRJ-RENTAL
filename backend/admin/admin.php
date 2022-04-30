@@ -7,46 +7,38 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" href="../assets/img/favicon.ico" type="image">
+        <link rel="shortcut icon" href="../../assets/img/favicon.ico" type="image">
 
         <!--=============== REMIXICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
         <!--=============== SWIPER CSS ===============-->
-        <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+        <link rel="stylesheet" href="../../assets/css/swiper-bundle.min.css">
 
         <!--=============== BOOTSRAP CSS ===============-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 
         <!--=============== CSS ===============-->
-        <link rel="stylesheet" href="../assets/css/styles.css" >
-        <link rel="stylesheet" href="style2.css">
+        <link rel="stylesheet" href="../../assets/css/styles.css" >
 
         <title>SRJ RENTAL</title>
     </head>
     <body>
     <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">SRJ RENTAL</a>
+                <a href="adminaccount.php" class="nav__logo">SRJ RENTAL</a>
 
                 <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item">
-                            <a href="../index.html" class="nav__link active-link">Home</a>
+                <ul class="nav__list">
+                <li class="nav__item">
+                            <a href="adminaccount.php" class="nav__link">Admin Panel</a>
                         </li>
                         <li class="nav__item">
-                            <a href="login.php" class="nav__link">Login</a>
+                            <a href="../logout.php" class="nav__link">Logout</a>
                         </li>
-                        <li class="nav__item">
-                            <a href="backend/booking.php" class="nav__link"></a>
-                        </li>
+                        
                     </ul>
-                    
-                    <div class="nav__dark">
-                        <span class="change-theme-name">Dark mode</span>
-                        <i class="ri-moon-line change-theme" id="theme-button"></i>
-                    </div>
-
                     <i class="ri-close-line nav__close" id="nav-close"></i>
                 </div>
 
@@ -56,71 +48,21 @@
             </nav>
         </header>
         <main class="main">
-        <img src="cars/bookhead.jpg" alt="car" class="book__img">
-        <section class="book" id="cars">
-        <section class="listings">
-          <div class="wrapper">
-              <ul class="properties_list">
-              <?php
-                          include 'config.php';
-                          $sel = "SELECT * FROM cars WHERE car_id = '$_GET[id]'";
-                          $rs = $con->query($sel);
-                          $rws = $rs->fetch_assoc();
-
-              ?>
-                  <li>
-                      <a href="book_car.php?id=<?php echo $rws['car_id'] ?>">
-                          <img class="car__img account__img" src="cars/img/<?php echo $rws['image'];?>" >
-                      </a>
-                      <span class="price"><?php echo '₹'.$rws['cost'];?>/Day</span>
-                      <div class="property_details">
-                          <h1>
-                              <a href="book_car.php?id=<?php echo $rws['car_id'] ?>"><?php echo $rws['car_name'];?></a>
-                          </h1>
-                          <h2> <span class="property_size"><?php echo $rws['car_type'];?><img src="cars/type.png" alt="" class="car__icon"></span></h2>
-                          <h2> <span class="property_size"><?php echo $rws['capacity'];?>-Seater <img src="cars/seat.png" alt="" class="car__icon"></span> </h2>
-                      </div>
-                  </li>
-                  <h3>Proceed to Hire <?php echo $rws['car_name'];?>. </h3>
-				
-    
-                        
-                    <form method="post" class="book__form" >
-                    <h9 class="">Sign Up For Booking</h8>
+        <section class="book_section" id="book">
+        <img src="../cars/bookhead.jpg" alt="car" class="book__img">
+        <section class="section">
+            <div class="container">
+            <form method="post" class="book__form" >
+                    <h9>Add Admin</h8>
 					<table class="form-group">
                     <tr>
                       <td>
-                    <input name="name" type="text" placeholder="Enter Name" class="form-control" id="name" required>
+                    <input name="username" type="text" placeholder="Enter username" class="form-control" id="username" required>
                     </td>  
                     </tr>
                     <tr>
                     <td>
-                    <input name="email" type="email" placeholder="Enter email" class="form-control" id="email" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="password" type="password" placeholder="Enter Password" class="form-control" id="number" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="mobile" type="number" placeholder="Enter Mobile Number" class="form-control" id="number" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <textarea name="address" class="form-control" id="address" rows="3" placeholder="Enter Address" required></textarea>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="city" type="text" placeholder="Enter Pickup City" class="form-control" id="city" required>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td>
-                    <input name="pincode" type="number" placeholder="Enter Pincode" class="form-control" maxlength="6" required id="pincode">
+                    <input name="password" type="password" placeholder="Enter Password" class="form-control" id="password" maxlength="6" required>
                     </td>
                     </tr>
                     <tr>
@@ -134,42 +76,90 @@
 					</table>
                   
 				</form>
-                
-    
-			
 				<?php
 						if(isset($_POST['save'])){
-							include 'config.php';
-							$name = $_POST['name'];
-							$email = $_POST['email'];
+							include '../config.php';
+							$username = $_POST['username'];
                             $password = $_POST['password'];
-							$mobile = $_POST['mobile'];
-							$address = $_POST['address'];
-                            $city =$_POST['city'];
-                            $pincode=$_POST['pincode'];
 							
-							$qry = "INSERT INTO client (name,email,password,mobile,address,city,pincode,car_id,status)
-							VALUES('$name','$email','$password','$mobile','$address','$city','$pincode','$_GET[id]','pending')";
+							$qry = "INSERT INTO admin (username,password)
+							VALUES('$username','$password')";
 							$result = $con->query($qry);
 							if($result == TRUE){
 								echo "<script type = \"text/javascript\">
-											alert(\"Successfully Registered. Proceed to Login\");
-                                            window.location = (\"paylogin.php\")
+											alert(\"Successfully Registered.\");
 											</script>";
 							} else{
 								echo "<script type = \"text/javascript\">
 											alert(\"Registration Failed. Try Again\");
-											window.location = (\"book_car.php\")
+											</script>";
+							}
+						};
+						
+					  ?>
+          <?php
+						if(isset($_GET['delete'])){
+							include '../config.php';
+							$username = $_GET['username'];
+							$qry= "DELETE FROM `admin` WHERE username='$username'";
+							$result = $con->query($qry);
+							if($result == TRUE){
+								echo "<script type = \"text/javascript\">
+											alert(\"Deleted\");
+											</script>";
+							} else{
+								echo "<script type = \"text/javascript\">
+											alert(\"Failed. Try Again\");
 											</script>";
 							}
 						}
 						
 					  ?>
-                    
-			</ul>
-		</div>
-	</section>
-            </section>
+          
+                <?php
+                            include '../config.php';
+                            $sel = "SELECT * FROM admin";
+                            $rs = $con->query($sel);
+                ?>     
+                    <br>
+                    <table class="table table-hover">
+                    <tr>
+                    <thead>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Password</th>
+                    </tr>
+                    </thead>
+
+                    <?php
+                    while($rws = $rs->fetch_assoc()) 
+                    {
+                    ?>
+                    <tr>
+                    <th scope="row"><?php echo $rws['id'];?></th>
+                    <td><?php echo $rws['username'];?></td>
+                    <td><?php echo $rws['password']; ?></td>
+                    </tr>
+                    <?php } ?>
+                    </table>
+                    <form method="get" class="book__form" >
+                    <h9 class="">Remove Admin</h9>
+					<table class="form-group">
+                    <tr>
+                      <td>
+                    <input name="username" type="text" placeholder="Enter username" class="form-control" id="username" required>
+                    </td>  
+                    </tr>
+                    <tr>
+                    <td>
+                    <button class="btn btn-primary button" type="submit" name="delete" value="delete">Submit</button>
+                    <button class="btn btn-primary button" type="reset">Reset</button>
+                    </td>
+                    </tr>
+					</table>
+				</form>
+      </section>
+        
             </main>
             
             <footer class="footer section">
@@ -251,8 +241,12 @@
                     </div>
                 </div>
     </footer>
-                <script src="../assets/js/swiper-bundle.min.js"></script>
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line scrollup__icon"></i>
+        </a>
+                <script src="../../assets/js/swiper-bundle.min.js"></script>
 
-                <script src="../assets/js/main.js"></script>
+                <script src="../../assets/js/main.js"></script>
             </body>
         </html>
